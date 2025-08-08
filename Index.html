@@ -714,6 +714,11 @@
         .submit-btn:hover {
             background-color: #2667cc;
         }
+        #msg{
+            color: var(--primary-color);
+            margin-top: -40px;
+            display: block;
+        }
 
         /* Login Modal */
         .modal {
@@ -1403,6 +1408,7 @@
                     </div>
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
+                <span id="msg"></span>
             </div>
         </div>
     </section>
@@ -1689,20 +1695,6 @@
             }
         });
 
-        // Contact Form Submission
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // In a real application, this would send the data to a server
-            showMessage('Thank you for your message! I will get back to you soon.', 'success');
-            contactForm.reset();
-        });
-
         // Functions
         function updateLoginButton() {
             if (isLoggedIn) {
@@ -1825,13 +1817,22 @@
     <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzm7TOj1OaqvMSX5KVDO-5kIzTJTJivf7mS9-cKJA8iSU8-wjM7TKUr0HowzFhPbrdA/exec'
     const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById("msg")
 
     form.addEventListener('submit', e => {
     e.preventDefault()
     fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    .then(response => console.log('Success!', response))
-    .catch(error => console.error('Error!', error.message))
+    .then(response =>{
+        msg.innerHTML ="Message sent Successfully"
+        setTimeout(function(){
+            msg.innerHTML = ""
+            }, 5000)
+            form.reset()
         })
+    })
+    .catch(error => console.error('Error!', error.message))
+    
+        
 </script>
 </body>
 </html>
