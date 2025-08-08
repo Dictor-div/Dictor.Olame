@@ -1384,7 +1384,7 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" name="submit-to-google-sheet">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
@@ -1822,5 +1822,16 @@
             });
         });
     </script>
+    <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzm7TOj1OaqvMSX5KVDO-5kIzTJTJivf7mS9-cKJA8iSU8-wjM7TKUr0HowzFhPbrdA/exec'
+    const form = document.forms['submit-to-google-sheet']
+
+    form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => console.log('Success!', response))
+    .catch(error => console.error('Error!', error.message))
+        })
+</script>
 </body>
 </html>
