@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DictorOlame</title>
+    <link rel="icon" type="image/x-icon" href="Dictor logo.png">
+    <script src="https://kit.fontawesome.com/5485a8e8c8.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #1f9b36;
+            --secondary-color: #921105;
+            --dark-color: #2c2a2a;
+            --light-color: #f8f9fa;
+            --success-color: #38b000;
+            --danger-color: #d90429;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            width: 8rem;
+            cursor: pointer;
+            size-adjust: 20%;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin: 0 1rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .login-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #2667cc;
+        }
+
+        .nav-login {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: white;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./My\ Graduation.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-btn:hover {
+            background-color: #db0a0a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* -------------------------------About Section----------------------- */
+        .about {
+            background-color: #f0f2f5;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-img img:hover {
+            transform: scale(1.05);
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .about-links {
+            margin-top: 2rem;
+        }
+
+        .about-links h4 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown {
+            margin-bottom: 1rem;
+            text-decoration: none;
+        }
+
+        .dropdown-btn {
+            background-color: white;
+            color: var(--dark-color);
+            padding: 0.8rem 1rem;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .dropdown-btn:hover {
+            border-color: var(--primary-color);
+            background-color: #f8f9fa;
+        }
+
+        .dropdown-content {
+            display: none;
+            background-color: white;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            margin-top: -1px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: (var(--success-color));
+        }
+
+        .dropdown-content p {
+            margin-bottom: 0.5rem;
+        }
+        .dropdown-content a{
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        .dropdown.active .dropdown-content {
+            display: block;
+            text-decoration: none;
+        }
+        .dropdown-content p a{
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        /* --------------------------Skills Section-------------------------- */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-card h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h2 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .skill-card p {
+            color: #666;
+        }
+
+        /* Experience & Education Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::after {
+            right: -10px;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px 25px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .timeline-content h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h2 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            background-color: #f0f2f5;
+        }
+
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(58, 134, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-overlay p {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Blog Section */
+        .blog {
+            background-color: white;
+        }
+
+        .blog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-content p {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .blog-btn {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .blog-btn:hover {
+            color: var(--secondary-color);
+        }
+
+        .admin-controls {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .admin-controls button {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-controls button:hover {
+            background-color: #a5001b;
+        }
+
+        .admin-controls .edit-btn {
+            background-color: var(--primary-color);
+        }
+
+        .admin-controls .edit-btn:hover {
+            background-color: #2667cc;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: #f0f2f5;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+
+        .contact-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .contact-text p, .contact-text a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-text a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #2667cc;
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            color: var(--dark-color);
+        }
+
+        .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--danger-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .login-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-submit:hover {
+            background-color: #2667cc;
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* Blog Management Modal */
+        .blog-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .blog-form-group input, .blog-form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .blog-form-group input:focus, .blog-form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .blog-form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .blog-modal-btns {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .blog-modal-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .blog-modal-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .blog-modal-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        .blog-modal-save {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .blog-modal-save:hover {
+            background-color: #2d8a00;
+        }
+
+        .blog-modal-delete {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .blog-modal-delete:hover {
+            background-color: #b50321;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .footer-logo span {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-container {
+                flex-direction: column;
+            }
+
+            .about-img, .about-content {
+                flex: none;
+                width: 100%;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 15px;
+            }
+
+            .left, .right {
+                left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--dark-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 70vh;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Display none class */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+             <img src="./Dictor logo.png" class="logo">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#blog" class="nav-link">My Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Me</a>
+                </li>
+            </ul>
+            <div class="nav-login">
+                <button id="loginBtn" class="login-btn">Login</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Hi, I'm Dictor Olame</h1>
+            <p>A passionate web developer and designer dedicated to creating beautiful, functional websites and applications that deliver exceptional user experiences.</p>
+            <a href="#contact" class="cta-btn">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <div class="about-container">
+                <div class="about-img">
+                    <img src="./IMG_20240814_082309_526.png" alt="Douglas">
+                </div>
+                <div class="about-content">
+                    <h3>Dictor Olame</h3>
+                    <p>Hello! I'm a passionate web developer with over 5 years of experience in creating digital experiences that blend aesthetics with functionality. My journey in web development began when I was just 16, and since then, I've been continuously learning and evolving with the ever-changing tech landscape.</p>
+                    <p>I specialize in front-end development, with a strong foundation in HTML, CSS, and JavaScript. I'm also proficient in various frameworks and libraries including React, Vue, and Angular. My approach to development is user-centered, always keeping the end-user experience at the forefront of my design decisions.</p>
+                    <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing my knowledge through technical writing and mentoring junior developers.</p>
+                    
+                    <div class="about-links">
+                        <h4>Connect with me:</h4>
+                        <div class="dropdown">
+                            <button class="dropdown-btn">
+                                Social Media <span>+</span>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="https://x.com/OlameDicto26034"><i class="fa-brands fa-x-twitter"></i></a>
+                                <a href="https://www.instagram.com/olamedictor37/"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/dictor-olame-5b9632275/"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="https://github.com/Dictor-div"><i class="fa-brands fa-github"></i></i></a>
+                                <a href="https://www.tiktok.com/@dictor.olame"><i class="fa-brands fa-tiktok"></i></a> 
+                                <a href="https://www.facebook.com/dictorsanja.abdallah"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropdown-btn">
+                                Resume <span>+</span>
+                            </button>
+                            <div class="dropdown-content">
+                                <p><a href="./Dictor's CV 2025.pdf"download>Download PDF</a></p>
+                                <p><a href="./Dictor's CV 2025.pdf">View Online</a></p>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropdown-btn">
+                                Contact <span>+</span>
+                            </button>
+                            <div class="dropdown-content">
+                                <p>Email: douglasdictor409@gmail.com</p>
+                                <p>Phone: +254755803938</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Services</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h1>Web Development</h1>
+                    <h2>Front-end & Back-end</h2>
+                    <p>I create responsive, user-friendly websites using modern technologies like HTML5, CSS3, JavaScript, React, and Node.js. From simple landing pages to complex web applications, I bring your vision to life.</p>
+                </div>
+                <div class="skill-card">
+                    <h1>UI/UX Design</h1>
+                    <h2>User Experience</h2>
+                    <p>I design intuitive and engaging user interfaces that provide exceptional user experiences. My design process focuses on user research, wireframing, prototyping, and usability testing.</p>
+                </div>
+                <div class="skill-card">
+                    <h1>Mobile Development</h1>
+                    <h2>React Native & Flutter</h2>
+                    <p>I develop cross-platform mobile applications that work seamlessly on both iOS and Android devices, ensuring a consistent user experience across platforms.</p>
+                </div>
+                <div class="skill-card">
+                    <h1>SEO Optimization</h1>
+                    <h2>Search Engine Ranking</h2>
+                    <p>I optimize websites for search engines to improve visibility and drive organic traffic. My SEO strategies include keyword research, on-page optimization, and technical SEO improvements.</p>
+                </div>
+                <div class="skill-card">
+                    <h1>E-commerce Solutions</h1>
+                    <h2>Online Stores</h2>
+                    <p>I build and customize e-commerce platforms using Shopify, WooCommerce, and custom solutions, helping businesses sell products online with ease.</p>
+                </div>
+                <div class="skill-card">
+                    <h1>Consulting</h1>
+                    <h2>Technical Guidance</h2>
+                    <p>I provide expert advice on technology selection, architecture, and best practices to help businesses make informed decisions about their digital presence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experience & Education</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h1>Senior Web Developer</h1>
+                        <h2>TechCorp Inc.</h2>
+                        <p>January 2020 - Present</p>
+                        <p>Lead development of responsive web applications using React and Node.js. Managed a team of 5 developers and collaborated with UX designers to create intuitive user interfaces.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h1>Web Developer</h1>
+                        <h2>Digital Solutions LLC</h2>
+                        <p>June 2018 - December 2019</p>
+                        <p>Developed and maintained client websites using HTML, CSS, JavaScript, and WordPress. Implemented responsive design principles to ensure optimal viewing across devices.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h1>Front-end Developer</h1>
+                        <h2>WebDesign Studio</h2>
+                        <p>September 2016 - May 2018</p>
+                        <p>Created interactive web interfaces using modern JavaScript frameworks. Collaborated with designers to implement pixel-perfect designs and improve user experience.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h1>Bachelor of Science in Computer Science</h1>
+                        <h2>Tech University</h2>
+                        <p>2012 - 2016</p>
+                        <p>Graduated with honors. Focused on web technologies, algorithms, and software engineering principles. Completed a senior project on progressive web applications.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Portfolio</h2>
+            </div>
+            <div class="portfolio-container">
+                <div class="portfolio-item">
+                    <img src="./emersion.jpeg" alt="Project 1" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>E-commerce Platform</h3>
+                        <p>A fully responsive e-commerce website with product catalog, shopping cart, and secure checkout.</p>
+                        <a href="#" class="portfolio-btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="./Mobile11.png" alt="Project 2" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Mobile Banking App</h3>
+                        <p>A secure mobile banking application with biometric authentication and real-time transaction tracking.</p>
+                        <a href="#" class="portfolio-btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="./effect of tech on huan right.png" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Graphic  Design Sernice</h3>
+                        <p>Creative and strategic design solutions tailored to bring your brand to life.</p>
+                        <a href="#" class="portfolio-btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="./22222.jpg" alt="Project 4" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Real Estate Portal</h3>
+                        <p>An interactive real estate platform with advanced search filters and virtual property tours.</p>
+                        <a href="#" class="portfolio-btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="./My design.png" alt="Project 5" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Social Media Content</h3>
+                        <p>Engaging, on-brand, and visually compelling social media posts designed to capture attention and drive interaction</p>
+                        <a href="#" class="portfolio-btn">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="./python w.png" alt="Project 6" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Online Learning Platform</h3>
+                        <p>An educational platform offering video courses, quizzes, and progress tracking for students.</p>
+                        <a href="#" class="portfolio-btn">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section blog">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Blog</h2>
+            </div>
+            <div class="blog-container" id="blogContainer">
+                <!-- Blog posts will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Me</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Phone</h3>
+                            <p>+254755803938</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p><a href="mailto:douglasdictor409@gmail.com">douglasdictor409@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Location</h3>
+                            <p>Kakuma, Kenya</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Dictor Olame<span>.</span></div>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
+                <p class="footer-text">&copy;2025 Dictor Olame. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="error-message" id="errorMessage">Invalid credentials. Please try again.</div>
+                <button type="submit" class="login-submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Blog Management Modal -->
+    <div id="blogModal" class="blog-modal">
+        <div class="blog-modal-content">
+            <div class="modal-header">
+                <h2 id="blogModalTitle">Create New Post</h2>
+                <span class="close" id="closeBlogModal">&times;</span>
+            </div>
+            <form id="blogForm">
+                <input type="hidden" id="blogId">
+                <div class="blog-form-group">
+                    <label for="blogTitle">Title</label>
+                    <input type="text" id="blogTitle" name="title" required>
+                </div>
+                <div class="blog-form-group">
+                    <label for="blogAuthor">Author</label>
+                    <input type="text" id="blogAuthor" name="author" required>
+                </div>
+                <div class="blog-form-group">
+                    <label for="blogDate">Date</label>
+                    <input type="date" id="blogDate" name="date" required>
+                </div>
+                <div class="blog-form-group">
+                    <label for="blogImage">Image URL</label>
+                    <input type="url" id="blogImage" name="image" required>
+                </div>
+                <div class="blog-form-group">
+                    <label for="blogContent">Content</label>
+                    <textarea id="blogContent" name="content" required></textarea>
+                </div>
+                <div class="blog-modal-btns">
+                    <button type="button" class="blog-modal-btn blog-modal-cancel" id="cancelBlogBtn">Cancel</button>
+                    <button type="button" class="blog-modal-btn blog-modal-delete" id="deleteBlogBtn" style="display: none;">Delete</button>
+                    <button type="submit" class="blog-modal-btn blog-modal-save" id="saveBlogBtn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const blogModal = document.getElementById('blogModal');
+        const closeBtn = document.querySelector('.close');
+        const closeBlogModal = document.getElementById('closeBlogModal');
+        const cancelBlogBtn = document.getElementById('cancelBlogBtn');
+        const loginForm = document.getElementById('loginForm');
+        const blogForm = document.getElementById('blogForm');
+        const blogContainer = document.getElementById('blogContainer');
+        const errorMessage = document.getElementById('errorMessage');
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+        const contactForm = document.getElementById('contactForm');
+        const deleteBlogBtn = document.getElementById('deleteBlogBtn');
+        const saveBlogBtn = document.getElementById('saveBlogBtn');
+        const blogModalTitle = document.getElementById('blogModalTitle');
+
+        // State
+        let isLoggedIn = false;
+        let isAdmin = false;
+        let blogs = [
+            {
+                id: 1,
+                title: "The Future of Web Development",
+                author: "Dictor Olame",
+                date: "2025-04-15",
+                image: "via.jpeg",
+                content: "Web development is evolving at a rapid pace, with new frameworks and technologies emerging every year. In this post, I explore the trends that are shaping the future of web development, from progressive web applications to serverless architectures and the growing importance of web accessibility."
+            },
+            {
+                id: 2,
+                title: "Mastering React Hooks",
+                author: "Dictor Olame",
+                date: "2024-03-22",
+                image: "Reat.png",
+                content: "React Hooks have revolutionized the way we write React components, allowing us to use state and other React features without writing a class. In this comprehensive guide, I dive deep into the most important hooks like useState, useEffect, useContext, and custom hooks, with practical examples and best practices."
+            },
+            {
+                id: 3,
+                title: "Designing for Accessibility",
+                author: "Dictor Olame",
+                date: "2024-02-10",
+                image: "UX.png",
+                content: "Accessibility should be a priority in every web project. In this post, I share practical techniques for making your websites more accessible, from proper semantic HTML and ARIA roles to keyboard navigation and color contrast considerations. I also discuss the business case for accessibility and how it benefits all users."
+            }
+        ];
+        let currentBlogId = null;
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load blogs
+            renderBlogs();
+            
+            // Check for saved login state
+            const savedLogin = localStorage.getItem('portfolioLogin');
+            if (savedLogin) {
+                const loginData = JSON.parse(savedLogin);
+                isLoggedIn = true;
+                isAdmin = loginData.username === 'dictorolame' && loginData.email === 'douglasdictor409@gmail.com';
+                updateLoginButton();
+            }
+        });
+
+        // Mobile Menu Toggle
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+
+        // Login Button Click
+        loginBtn.addEventListener('click', function() {
+            loginModal.style.display = 'flex';
+            errorMessage.style.display = 'none';
+        });
+
+        // Close Modals
+        closeBtn.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+
+        closeBlogModal.addEventListener('click', function() {
+            blogModal.style.display = 'none';
+        });
+
+        cancelBlogBtn.addEventListener('click', function() {
+            blogModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (event.target === blogModal) {
+                blogModal.style.display = 'none';
+            }
+        });
+
+        // Dropdown functionality
+        dropdownBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.parentElement.classList.toggle('active');
+                const icon = this.querySelector('span');
+                if (this.parentElement.classList.contains('active')) {
+                    icon.textContent = '-';
+                } else {
+                    icon.textContent = '+';
+                }
+            });
+        });
+
+        // Login Form Submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            
+            // Check credentials
+            if (username === 'dictorolame' && email === 'douglasdictor409@gmail.com') {
+                isLoggedIn = true;
+                isAdmin = true;
+                
+                // Save login state
+                localStorage.setItem('portfolioLogin', JSON.stringify({ username, email }));
+                
+                loginModal.style.display = 'none';
+                loginForm.reset();
+                updateLoginButton();
+                showMessage('Login successful! Welcome, Admin.', 'success');
+            } else {
+                // For simplicity, allow any username and email to login as regular user
+                isLoggedIn = true;
+                isAdmin = false;
+                
+                // Save login state
+                localStorage.setItem('portfolioLogin', JSON.stringify({ username, email }));
+                
+                loginModal.style.display = 'none';
+                loginForm.reset();
+                updateLoginButton();
+                showMessage('Login successful!', 'success');
+            }
+        });
+
+        // Blog Form Submission
+        blogForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('blogTitle').value;
+            const author = document.getElementById('blogAuthor').value;
+            const date = document.getElementById('blogDate').value;
+            const image = document.getElementById('blogImage').value;
+            const content = document.getElementById('blogContent').value;
+            
+            if (currentBlogId) {
+                // Edit existing blog
+                const index = blogs.findIndex(blog => blog.id == currentBlogId);
+                if (index !== -1) {
+                    blogs[index] = { id: currentBlogId, title, author, date, image, content };
+                    showMessage('Blog post updated successfully!', 'success');
+                }
+            } else {
+                // Create new blog
+                const newId = blogs.length > 0 ? Math.max(...blogs.map(blog => blog.id)) + 1 : 1;
+                blogs.push({ id: newId, title, author, date, image, content });
+                showMessage('Blog post created successfully!', 'success');
+            }
+            
+            blogModal.style.display = 'none';
+            blogForm.reset();
+            currentBlogId = null;
+            renderBlogs();
+        });
+
+        // Delete Blog
+        deleteBlogBtn.addEventListener('click', function() {
+            if (currentBlogId) {
+                if (confirm('Are you sure you want to delete this blog post?')) {
+                    blogs = blogs.filter(blog => blog.id != currentBlogId);
+                    blogModal.style.display = 'none';
+                    blogForm.reset();
+                    currentBlogId = null;
+                    renderBlogs();
+                    showMessage('Blog post deleted successfully!', 'success');
+                }
+            }
+        });
+
+        // Contact Form Submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // In a real application, this would send the data to a server
+            showMessage('Thank you for your message! I will get back to you soon.', 'success');
+            contactForm.reset();
+        });
+
+        // Functions
+        function updateLoginButton() {
+            if (isLoggedIn) {
+                loginBtn.textContent = 'Logged In';
+                loginBtn.style.backgroundColor = '#28a745';
+            } else {
+                loginBtn.textContent = 'Login';
+                loginBtn.style.backgroundColor = '';
+            }
+        }
+
+        function renderBlogs() {
+            blogContainer.innerHTML = '';
+            
+            blogs.forEach(blog => {
+                const blogElement = document.createElement('div');
+                blogElement.className = 'blog-item';
+                blogElement.innerHTML = `
+                    <img src="${blog.image}" alt="${blog.title}" class="blog-img">
+                    <div class="blog-content">
+                        <h3>${blog.title}</h3>
+                        <div class="blog-meta">
+                            <span>By ${blog.author}</span>
+                            <span>${formatDate(blog.date)}</span>
+                        </div>
+                        <p>${truncateText(blog.content, 150)}</p>
+                        <a href="#" class="blog-btn" data-id="${blog.id}">Read More</a>
+                        <div class="admin-controls" id="admin-${blog.id}">
+                            <button class="edit-btn" data-id="${blog.id}">Edit</button>
+                            <button class="delete-btn" data-id="${blog.id}">Delete</button>
+                        </div>
+                    </div>
+                `;
+                
+                blogContainer.appendChild(blogElement);
+                
+                // Add event listeners for blog actions
+                const readMoreBtn = blogElement.querySelector('.blog-btn');
+                readMoreBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBlogDetail(blog);
+                });
+                
+                // Show admin controls if logged in as admin
+                if (isAdmin) {
+                    const adminControls = blogElement.querySelector(`#admin-${blog.id}`);
+                    adminControls.style.display = 'block';
+                    
+                    const editBtn = adminControls.querySelector('.edit-btn');
+                    editBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        editBlog(blog.id);
+                    });
+                    
+                    const deleteBtn = adminControls.querySelector('.delete-btn');
+                    deleteBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        if (confirm('Are you sure you want to delete this blog post?')) {
+                            blogs = blogs.filter(b => b.id != blog.id);
+                            renderBlogs();
+                            showMessage('Blog post deleted successfully!', 'success');
+                        }
+                    });
+                }
+            });
+        }
+
+        function showBlogDetail(blog) {
+            // In a real application, this would navigate to a blog detail page
+            alert(`Blog: ${blog.title}\n\n${blog.content}`);
+        }
+
+        function editBlog(id) {
+            const blog = blogs.find(b => b.id == id);
+            if (blog) {
+                currentBlogId = blog.id;
+                document.getElementById('blogId').value = blog.id;
+                document.getElementById('blogTitle').value = blog.title;
+                document.getElementById('blogAuthor').value = blog.author;
+                document.getElementById('blogDate').value = blog.date;
+                document.getElementById('blogImage').value = blog.image;
+                document.getElementById('blogContent').value = blog.content;
+                document.getElementById('blogModalTitle').textContent = 'Edit Post';
+                deleteBlogBtn.style.display = 'inline-block';
+                blogModal.style.display = 'flex';
+            }
+        }
+
+        function showMessage(message, type) {
+            // In a real application, this would show a toast or notification
+            alert(message);
+        }
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function truncateText(text, maxLength) {
+            if (text.length <= maxLength) {
+                return text;
+            }
+            return text.substr(0, maxLength) + '...';
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
